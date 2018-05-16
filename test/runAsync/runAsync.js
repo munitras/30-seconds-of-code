@@ -1,7 +1,6 @@
-module.exports = runAsync = fn => {
-const blob = `var fn = ${fn.toString()}; postMessage(fn());`;
+const runAsync = fn => {
 const worker = new Worker(
-URL.createObjectURL(new Blob([blob]), {
+URL.createObjectURL(new Blob([`postMessage((${fn})());`]), {
 type: 'application/javascript; charset=utf-8'
 })
 );
@@ -14,3 +13,4 @@ rej(err), worker.terminate();
 };
 });
 };
+module.exports = runAsync;

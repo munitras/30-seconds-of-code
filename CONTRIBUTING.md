@@ -1,19 +1,19 @@
-## Contributing
+![contribution guidelines](https://i.imgur.com/8Wk9nat.png)
 
 **30 seconds of code** is a community effort, so feel free to contribute in any way you can. Every contribution helps!
 
 Here's what you can do to help:
 
+- Submit [pull requests](https://github.com/Chalarangelo/30-seconds-of-code/pulls) with snippets and tests that you have created (see below for guidelines).
 - [Open issues](https://github.com/Chalarangelo/30-seconds-of-code/issues/new) for things you want to see added or modified.
 - Be part of the discussion by helping out with [existing issues](https://github.com/Chalarangelo/30-seconds-of-code/issues) or talking on our [gitter channel](https://gitter.im/30-seconds-of-code/Lobby).
-- Submit [pull requests](https://github.com/Chalarangelo/30-seconds-of-code/pulls) with snippets you have created (see below for guidelines).
 - Tag uncategorized snippets by running `npm run tagger` and adding the appropriate tags next to the script name in `tag_database`.
 - Fix typos in existing snippets, improve snippet descriptions and explanations or provide better examples.
+- Write tests for existing snippets (see below for guidelines).
 
 ### Snippet submission and Pull request guidelines
 
-- **DO NOT MODIFY THE README.md FILE!** Make changes to individual snippet files. **Travis CI** will automatically build the `README.md` file when your pull request is merged.
-- **DO NOT MODIFY THE index.html FILE!** Make changes to individual snippet files. **Travis CI** will automatically build the `index.html` file when your pull request is merged.
+- **DO NOT MODIFY THE README.md or index.html FILES!** Make changes to individual snippet files. **Travis CI** will automatically build the `README.md` and `index.html` files when your pull request is merged.
 - **Snippet filenames** must correspond to the title of the snippet. For example, if your snippet is titled `### awesomeSnippet` the filename should be `awesomeSnippet.md`.
   - Use `camelCase`, not `kebab-case` or `snake_case`.
   - Avoid capitalization of words, except if the whole word is capitalized (e.g. `URL` should be capitalized in the filename and the snippet title).
@@ -36,7 +36,19 @@ Here's what you can do to help:
 - Snippets *should* be abstract enough to be applied to different scenarios.
 - It is not mandatory but highly appreciated if you provide **test cases** and/or performance tests (we recommend using [jsPerf](https://jsperf.com/)).
 - You can start creating a new snippet, by using the [snippet template](snippet-template.md) to format your snippets.
-- Updating the index.html or README.md files should only be done by altering the scripts in the **scripts** folder or altering their relative static parts in the **static-parts** folder.
+
+### Writing tests
+- Before writing any tests run `npm run tester` script. It will update test directory to include new snippets as well as update old ones if needed.
+- **DO NOT MODIFY THE snippetName.js files** under test directory.
+- We are using [tape](https://github.com/substack/tape) for testing.
+- Write tests under `snippetName.test.js` file. If you have trouble doing so, check out tests of other snippets.
+- Be sure to run `npm run test`. It is going to run all tests for all snippets.
+- Make a new pull request **only if all the tests are passing**.
+
+#### Browser specific tests
+- If your snippet belongs to `browser` category, then you will need to modify the tests to make them work.
+- By default, `Node.js` isn't browser environment. That said we have to use an external package to help us simulate the browser for our tests.
+- We use [jsdom](https://www.npmjs.com/package/jsdom) for our browser specific tests. You can find their [documentation](https://github.com/jsdom/jsdom) on GitHub as well.
 
 ### Additional guidelines and conventions regarding snippets
 

@@ -1,1 +1,2 @@
-module.exports = flip = fn => (...args) => fn(args.pop(), ...args);
+const flip = fn => (first, ...rest) => fn(...rest, first);
+module.exports = flip;

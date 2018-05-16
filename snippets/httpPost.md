@@ -10,7 +10,7 @@ Omit the third argument, `data`, to send no data to the provided `url`.
 Omit the fourth argument, `err`, to log errors to the console's `error` stream by default.
 
 ```js
-const httpPost = (url, callback, data = null, err = console.error) => {
+const httpPost = (url, data, callback, err = console.error) => {
   const request = new XMLHttpRequest();
   request.open('POST', url, true);
   request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -21,31 +21,32 @@ const httpPost = (url, callback, data = null, err = console.error) => {
 ```
 
 ```js
-
-
-
-
-
-
-
-
-
-
-
-
 const newPost = {
-  "userId": 1,
-  "id": 1337,
-  "title": "Foo",
-  "body": "bar bar bar"
+  userId: 1,
+  id: 1337,
+  title: 'Foo',
+  body: 'bar bar bar'
 };
 const data = JSON.stringify(newPost);
-httpPost('https://jsonplaceholder.typicode.com/posts', console.log, data; /*
+httpPost(
+  'https://jsonplaceholder.typicode.com/posts',
+  data,
+  console.log
+); /*
 Logs: {
   "userId": 1,
   "id": 1337,
   "title": "Foo",
   "body": "bar bar bar"
+}
+*/
+httpPost(
+  'https://jsonplaceholder.typicode.com/posts',
+  null, //does not send a body
+  console.log
+); /*
+Logs: {
+  "id": 101
 }
 */
 ```

@@ -6,9 +6,8 @@ const fs = require('fs-extra');
 const cp = require('child_process');
 const path = require('path');
 const chalk = require('chalk');
-// Load helper functions (these are from existing snippets in 30 seconds of code!)
-const isTravisCI = () => 'TRAVIS' in process.env && 'CI' in process.env;
-if(isTravisCI() && process.env['TRAVIS_EVENT_TYPE'] !== 'cron' && process.env['TRAVIS_EVENT_TYPE'] !== 'api') {
+const util = require('./util');
+if(util.isTravisCI() && process.env['TRAVIS_EVENT_TYPE'] !== 'cron' && process.env['TRAVIS_EVENT_TYPE'] !== 'api') {
   console.log(`${chalk.green('NOBUILD')} Module build terminated, not a cron job or a custom build!`);
   process.exit(0);
 }
@@ -19,7 +18,7 @@ const IMPORTS = './imports.js';
 // Regex for selecting code blocks
 const codeRE = /```\s*js([\s\S]*?)```/;
 // Start the timer of the script
-console.time('Module');
+console.time('Packager');
 // Load tag data from the database and snippets from their folder
 try {
   const tagDatabase = fs.readFileSync('tag_database', 'utf8');
@@ -72,7 +71,7 @@ try {
   // Log a success message
   console.log(`${chalk.green('SUCCESS!')} Snippet module built!`);
   // Log the time taken
-  console.timeEnd('Module');
+  console.timeEnd('Packager');
 } catch (err) {
   // Handle errors (hopefully not!)
   console.log(`${chalk.red('ERROR!')} During module creation: ${err}`);
